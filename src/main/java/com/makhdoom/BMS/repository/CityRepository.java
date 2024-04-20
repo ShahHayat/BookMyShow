@@ -1,6 +1,6 @@
 package com.makhdoom.BMS.repository;
 
-import com.makhdoom.BMS.model.City;
+import com.makhdoom.BMS.models.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
