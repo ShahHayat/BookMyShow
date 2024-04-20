@@ -5,11 +5,20 @@ plugins {
 	id("org.springdoc.openapi-gradle-plugin") version "1.8.0"
 }
 
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'com.makhdoom.BMS.BmsApplication'
+		)
+	}
+}
+
 group = 'com.makhdoom'
 version = '0.0.1-SNAPSHOT'
 
 java {
 	sourceCompatibility = '17'
+	targetCompatibility = '17'
 }
 
 configurations {

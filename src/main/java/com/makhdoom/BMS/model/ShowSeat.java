@@ -13,7 +13,7 @@ import lombok.*;
 public class ShowSeat extends BaseModel {
 
     @ManyToOne
-    private Show showMovie;
+    private Show show;
 
     @ManyToOne
     private Seat seat;

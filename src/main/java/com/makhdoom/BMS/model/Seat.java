@@ -12,7 +12,7 @@ import lombok.*;
 @Table(name = "seat")
 public class Seat extends BaseModel {
 
-    private String name;
+    private String seatNumber;
 
     @Column(name = "seat_row")
     private int row;

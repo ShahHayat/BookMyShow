@@ -31,7 +31,16 @@ public class Show extends BaseModel {
     @JoinColumn(name = "auditorium_id", referencedColumnName = "id")
     private Auditorium auditorium;
 
+    @OneToMany(mappedBy = "show")
+    private List<ShowSeat> showSeats;
+
+    @OneToMany(mappedBy = "show")
+    private List<ShowSeatType> showSeatTypes;
+
+    @Enumerated(EnumType.STRING)
+    private Language languages;
+
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private List<Feature> features;
+    private List<ShowFeature> showFeatures;
 }

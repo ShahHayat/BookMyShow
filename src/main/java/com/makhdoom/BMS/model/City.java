@@ -1,9 +1,6 @@
 package com.makhdoom.BMS.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.List;
@@ -17,8 +14,9 @@ import java.util.List;
 @Table(name = "city")
 public class City extends BaseModel {
 
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany (mappedBy = "city", fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "city", fetch = FetchType.EAGER)
     private List<Theatre> theatres;
 }

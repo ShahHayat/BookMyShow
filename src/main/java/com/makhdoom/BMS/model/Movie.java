@@ -22,14 +22,26 @@ public class Movie extends BaseModel {
     private LocalDate releaseDate;
 
     @Column(name = "duration", nullable = false)
-    private String duration;
+    private double duration;
 
-    @ManyToMany
+    @Column(name = "rating")
+    private double rating;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    private List<Language> languages;
+
+    @ManyToMany(mappedBy = "movies")
+    @JoinTable(
+            name = "movie_actor",
+            joinColumns = @JoinColumn(name = "movie_id"),
+            inverseJoinColumns = @JoinColumn(name = "actor_id")
+    )
     private List<Actor> actors;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
-    private List<Feature> features;
+    private List<MovieFeature> movieFeatures;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
