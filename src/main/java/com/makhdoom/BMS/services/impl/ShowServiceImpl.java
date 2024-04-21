@@ -4,66 +4,57 @@ import com.makhdoom.BMS.converters.ShowConverter;
 import com.makhdoom.BMS.dtos.requestdto.ShowEntryDto;
 import com.makhdoom.BMS.dtos.responsedto.ShowResponseDto;
 import com.makhdoom.BMS.exceptions.ShowNotFoundException;
-import com.makhdoom.BMS.models.Auditorium;
-import com.makhdoom.BMS.models.Movie;
-import com.makhdoom.BMS.models.Show;
-import com.makhdoom.BMS.models.Theatre;
-import com.makhdoom.BMS.repository.MovieRepository;
-import com.makhdoom.BMS.repository.ShowRepository;
-import com.makhdoom.BMS.repository.ShowSeatRepository;
-import com.makhdoom.BMS.repository.TheatreRepository;
+import com.makhdoom.BMS.models.*;
+import com.makhdoom.BMS.repository.*;
 import com.makhdoom.BMS.services.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ShowServiceImpl implements ShowService {
 
+    private AuditoriumRepository auditoriumRepository;
     private ShowRepository showRepository;
     private ShowSeatRepository showSeatRepository;
-    private MovieRepository movieRepository;
-    private TheatreRepository theatreRepository;
 
     @Autowired
-    public ShowServiceImpl(ShowRepository showRepository, ShowSeatRepository showSeatRepository, MovieRepository movieRepository, TheatreRepository theatreRepository) {
+    public ShowServiceImpl(AuditoriumRepository auditoriumRepository,
+                       ShowRepository showRepository,
+                       ShowSeatRepository showSeatRepository) {
+        this.auditoriumRepository = auditoriumRepository;
         this.showRepository = showRepository;
         this.showSeatRepository = showSeatRepository;
-        this.movieRepository = movieRepository;
-        this.theatreRepository = theatreRepository;
     }
 
     @Override
-    public ShowResponseDto addShow(ShowEntryDto showEntryDto) {
+    public Show createShow(
+            Long movieId,
+            Date startTime,
+            Date endTime,
+            Long auditoriumId,
+            Map<SeatType, Integer> seatPricing,
+            Language language
+    ) {
+        Show show = new Show();
+        show.setStartTime(startTime);
+        show.setEndTime(endTime);
+        show.setLanguage(language);
 
-        Show show = ShowConverter.convertDtoToEntity(showEntryDto);
-        Movie movie = movieRepository.findById(showEntryDto.getMovieResponseDto().getId()).get();
-        Theatre theatre = theatreRepository.findById(showEntryDto.getTheatreResponseDto().getTheatreId()).get();
+        Auditorium auditorium = auditoriumRepository.findById(auditoriumId).get();
+        show.setAuditorium(auditorium);
+        Show savedShow = showRepository.save(show);
+        List<ShowSeat> savedShowSeats = new ArrayList<>();
 
-        show.setMovie(movie);
+        for (Seat seat: auditorium.getSeats()) {
+            ShowSeat showSeat = new ShowSeat();
+            showSeat.setShow(savedShow);
+            showSeat.setSeat(seat);
+            showSeat.setState(ShowSeatState.AVAILABLE);
+            savedShowSeats.add(showSeatRepository.save(showSeat));
+        }
 
-        showRepository.save(show);
+        savedShow.setShowSeats(savedShowSeats);
 
-        generateShowSeats(theatre.getAuditoriums(), show);
-
-        showRepository.save(show);
-
-        return ShowConverter.convertEntityToDto(show);
-    }
-
-    private void generateShowSeats(List<Auditorium> auditoriums, Show show) {
-
-        // TODO : Complete this function.
-    }
-
-    @Override
-    public ShowResponseDto getShow(Long id) {
-
-        Optional<Show> show = showRepository.findById(id);
-
-        if(show.isEmpty())
-            throw new ShowNotFoundException("Show with id : " + id + " does not exist.");
-
-        return ShowConverter.convertEntityToDto(show.get());
+        return showRepository.save(savedShow);
     }
 }

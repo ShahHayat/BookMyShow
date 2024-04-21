@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,9 +21,9 @@ public class Show extends BaseModel {
     @JoinColumn(name = "movie_id")
     private Movie movie;
 
-    private LocalTime startTime;
+    private Date startTime;
 
-    private LocalTime endTime;
+    private Date endTime;
 
     private LocalDate showDate;
 
@@ -37,7 +38,7 @@ public class Show extends BaseModel {
     private List<ShowSeatType> showSeatTypes;
 
     @Enumerated(EnumType.STRING)
-    private Language languages;
+    private Language language;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)

@@ -1,7 +1,9 @@
 package com.makhdoom.BMS.services.impl;
 
+import com.makhdoom.BMS.converters.UserConverter;
 import com.makhdoom.BMS.dtos.requestdto.UserEntryDto;
 import com.makhdoom.BMS.dtos.responsedto.UserResponseDto;
+import com.makhdoom.BMS.models.User;
 import com.makhdoom.BMS.repository.UserRepository;
 import com.makhdoom.BMS.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +20,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDto addUser(UserEntryDto userEntryDto) {
-        // TODO : Complete this function.
-        return null;
+    public UserResponseDto createUser(String email) {
+
+        User user = new User();
+        user.setEmail(email);
+
+        User savedUser = userRepository.save(user);
+
+        return UserConverter.convertEntityToDto(savedUser);
     }
 
     @Override

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -16,7 +17,7 @@ import java.util.List;
 public class Ticket extends BaseModel {
 
     private double totalAmount;
-    private LocalDateTime bookingTime;
+    private Date timeOfBooking;
 
     @ManyToOne
     private User bookedBy;
@@ -25,7 +26,7 @@ public class Ticket extends BaseModel {
     private List<ShowSeat> showSeats;
 
     @ManyToOne
-    private Show showMovie;
+    private Show show;
 
     @OneToMany
     private List<Payment> payments;
