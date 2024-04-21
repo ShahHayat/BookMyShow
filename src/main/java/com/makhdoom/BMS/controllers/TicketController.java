@@ -1,9 +1,9 @@
 package com.makhdoom.BMS.controllers;
 
-import com.makhdoom.BMS.dtos.BookTicketRequestDto;
-import com.makhdoom.BMS.dtos.TicketDto;
 import com.makhdoom.BMS.exceptions.ShowSeatNotAvailableException;
+import com.makhdoom.BMS.models.Ticket;
 import com.makhdoom.BMS.services.TicketService;
+import com.makhdoom.BMS.services.impl.TicketServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -15,17 +15,11 @@ public class TicketController {
     private TicketService ticketService;
 
     @Autowired
-
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketServiceImpl ticketService) {
         this.ticketService = ticketService;
     }
 
-    public TicketDto bookTicket(
-            Long showId,
-            List<Long> showSeatIds,
-            Long userId
-    ) throws ShowSeatNotAvailableException {
-        BookTicketRequestDto bookTicketRequestDto = new BookTicketRequestDto();
-        return this.ticketService.bookTicket(bookTicketRequestDto);
+    public Ticket bookTicket(Long showId, List<Long> showSeatIds, Long userId) throws ShowSeatNotAvailableException {
+        return this.ticketService.bookTicket(showId, showSeatIds, userId);
     }
 }

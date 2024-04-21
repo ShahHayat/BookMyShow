@@ -1,16 +1,14 @@
 package com.makhdoom.BMS.services.impl;
 
-import com.makhdoom.BMS.converters.ShowConverter;
-import com.makhdoom.BMS.dtos.requestdto.ShowEntryDto;
-import com.makhdoom.BMS.dtos.responsedto.ShowResponseDto;
-import com.makhdoom.BMS.exceptions.ShowNotFoundException;
 import com.makhdoom.BMS.models.*;
 import com.makhdoom.BMS.repository.*;
 import com.makhdoom.BMS.services.ShowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service
 public class ShowServiceImpl implements ShowService {
 
     private AuditoriumRepository auditoriumRepository;

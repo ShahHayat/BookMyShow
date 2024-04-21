@@ -1,7 +1,5 @@
 package com.makhdoom.BMS.services.impl;
 
-import com.makhdoom.BMS.dtos.BookTicketRequestDto;
-import com.makhdoom.BMS.dtos.TicketDto;
 import com.makhdoom.BMS.exceptions.ShowSeatNotAvailableException;
 import com.makhdoom.BMS.models.ShowSeat;
 import com.makhdoom.BMS.models.ShowSeatState;
@@ -9,16 +7,17 @@ import com.makhdoom.BMS.models.Ticket;
 import com.makhdoom.BMS.models.TicketStatus;
 import com.makhdoom.BMS.repository.ShowRepository;
 import com.makhdoom.BMS.repository.ShowSeatRepository;
-import com.makhdoom.BMS.repository.TicketRepository;
 import com.makhdoom.BMS.repository.UserRepository;
 import com.makhdoom.BMS.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class TicketServiceImpl implements TicketService {
 
     private ShowSeatRepository showSeatRepository;

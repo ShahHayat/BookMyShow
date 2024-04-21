@@ -8,6 +8,7 @@ import lombok.Data;
 public class UserEntryDto {
 
     String name;
+    String email;
     String password;
     String mobileNumber;
 }

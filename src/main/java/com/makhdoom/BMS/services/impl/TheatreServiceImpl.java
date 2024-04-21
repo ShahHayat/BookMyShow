@@ -1,10 +1,6 @@
 package com.makhdoom.BMS.services.impl;
 
-import com.makhdoom.BMS.converters.TheatreConverter;
-import com.makhdoom.BMS.dtos.requestdto.TheatreCreationRequestDto;
-import com.makhdoom.BMS.dtos.responsedto.TheatreResponseDto;
 import com.makhdoom.BMS.exceptions.CityNotFoundException;
-import com.makhdoom.BMS.exceptions.TheatreNotFoundException;
 import com.makhdoom.BMS.models.*;
 import com.makhdoom.BMS.repository.AuditoriumRepository;
 import com.makhdoom.BMS.repository.CityRepository;

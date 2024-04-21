@@ -1,15 +1,16 @@
 package com.makhdoom.BMS.services.impl;
 
 import com.makhdoom.BMS.converters.UserConverter;
-import com.makhdoom.BMS.dtos.requestdto.UserEntryDto;
 import com.makhdoom.BMS.dtos.responsedto.UserResponseDto;
 import com.makhdoom.BMS.models.User;
 import com.makhdoom.BMS.repository.UserRepository;
 import com.makhdoom.BMS.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
